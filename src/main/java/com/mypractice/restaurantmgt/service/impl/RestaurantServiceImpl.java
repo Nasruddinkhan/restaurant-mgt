@@ -3,6 +3,7 @@ package com.mypractice.restaurantmgt.service.impl;
 import com.mypractice.restaurantmgt.dto.DishDto;
 import com.mypractice.restaurantmgt.dto.LicenseDto;
 import com.mypractice.restaurantmgt.dto.RestaurantDto;
+import com.mypractice.restaurantmgt.dto.RestaurantResponseDto;
 import com.mypractice.restaurantmgt.entity.Restaurant;
 import com.mypractice.restaurantmgt.mapper.RestaurantMapper;
 import com.mypractice.restaurantmgt.repository.RestaurantRepository;
@@ -16,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -33,9 +34,41 @@ public class RestaurantServiceImpl implements RestaurantService {
         Restaurant restaurant = repository.save(restaurantMapper.restaurantDtoToRestaurant(dto));
         List<DishDto> dishes = createDishDto(dto.getDishDto(), restaurant);
         LicenseDto licences = addLicences(dto.getLicenseDto(), restaurant);
-        RestaurantDto restaurantDto = restaurantMapper.restaurantToRestaurantDto(restaurant, dishes, licences);
-        return restaurantDto;
+        return restaurantMapper.restaurantToRestaurantDto(restaurant, dishes, licences);
     }
+
+    @Override
+    public List<RestaurantResponseDto> findAllRestaurant() {
+        return repository.findAll()
+                .stream().map(restaurantMapper::restaurantToRestaurantDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public RestaurantResponseDto findRestaurantById(Long restaurantId) {
+        return repository.findById(restaurantId)
+                .map(restaurantMapper::restaurantToRestaurantDto)
+                .orElseThrow(() -> new RuntimeException(String.format("restaurant not found given %s id", restaurantId)));
+    }
+
+    @Override
+    public Restaurant findRestaurantByRestaurantId(Long restaurantId) {
+        return repository.findById(restaurantId)
+                .orElseThrow(() -> new RuntimeException(String.format("restaurant not found given %s id", restaurantId)));
+    }
+
+    @Override
+    public List<RestaurantDto> findAllRestaurantWithDetails() {
+        return repository.findAll().stream().map(this::getDishesAndLicense).collect(Collectors.toList());
+    }
+
+    private RestaurantDto getDishesAndLicense(Restaurant restaurant) {
+        List<DishDto> dishDto = dishService.findAllDishesByRestaurant(restaurant);
+        LicenseDto licenseDto = licenseService.findLicenseByRestaurant(restaurant);
+        return restaurantMapper.restaurantToRestaurantDto(restaurant, dishDto, licenseDto);
+    }
+
+
 
     public List<DishDto> createDishDto(List<DishDto> dishDto, Restaurant restaurant) {
         return Optional.ofNullable(dishDto)

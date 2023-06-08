@@ -7,11 +7,12 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 
 public class FileUtils {
-    public static final String createFile(String fileContent, String outFilePath, String fileName)  {
+    private FileUtils(){}
+    public static final String createFile(String fileContent, String outFilePath, String fileName) {
         byte[] data = Base64.decodeBase64(fileContent);
-        try (OutputStream stream = new FileOutputStream(outFilePath + File.separator+fileName)) {
+        try (OutputStream stream = new FileOutputStream(outFilePath + File.separator + CommonUtil.getUniqueNumber() + "_"+fileName)) {
             stream.write(data);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage());
         }
         return fileName;

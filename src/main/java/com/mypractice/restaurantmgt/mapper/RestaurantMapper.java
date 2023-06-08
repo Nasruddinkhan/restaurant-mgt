@@ -3,6 +3,7 @@ package com.mypractice.restaurantmgt.mapper;
 import com.mypractice.restaurantmgt.dto.DishDto;
 import com.mypractice.restaurantmgt.dto.LicenseDto;
 import com.mypractice.restaurantmgt.dto.RestaurantDto;
+import com.mypractice.restaurantmgt.dto.RestaurantResponseDto;
 import com.mypractice.restaurantmgt.entity.Restaurant;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -27,4 +28,12 @@ public class RestaurantMapper {
                 .licenseDto(licences)
                 .build();
     }
+
+    public  RestaurantResponseDto restaurantToRestaurantDto(Restaurant restaurantDto){
+        return RestaurantResponseDto.builder()
+                .restaurantId(restaurantDto.getRestaurantId())
+                .name(restaurantDto.getName())
+                .build();
+    }
+
 }

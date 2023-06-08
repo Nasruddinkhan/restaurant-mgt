@@ -1,15 +1,14 @@
 package com.mypractice.restaurantmgt.controller;
 
 import com.mypractice.restaurantmgt.dto.RestaurantDto;
+import com.mypractice.restaurantmgt.dto.RestaurantResponseDto;
 import com.mypractice.restaurantmgt.service.RestaurantService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/restaurant")
@@ -25,4 +24,21 @@ public class RestaurantController {
         return new ResponseEntity<>(restaurantDto, HttpStatus.CREATED);
     }
 
+    @GetMapping
+    public ResponseEntity<List<RestaurantResponseDto>> findAllRestaurant(){
+        List<RestaurantResponseDto> restaurantDtos = restaurantService.findAllRestaurant();
+        return ResponseEntity.ok(restaurantDtos);
+    }
+
+    @GetMapping("/{restaurant-id}")
+    public ResponseEntity<RestaurantResponseDto> findRestaurantById(@PathVariable("restaurant-id") Long restaurantId){
+        RestaurantResponseDto restaurantDto= restaurantService.findRestaurantById(restaurantId);
+        return ResponseEntity.ok(restaurantDto);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<RestaurantDto>> findAllRestaurantWithDetails(){
+        List<RestaurantDto> restaurantDtos = restaurantService.findAllRestaurantWithDetails();
+        return ResponseEntity.ok(restaurantDtos);
+    }
 }

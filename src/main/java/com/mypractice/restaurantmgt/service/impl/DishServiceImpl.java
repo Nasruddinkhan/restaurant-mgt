@@ -21,18 +21,35 @@ public class DishServiceImpl implements DishService {
     private final DishMapper dishMapper;
     private final DishRepository repository;
 
-    @Override
-    public DishDto addDishes(List<DishDto> dishDtos) {
-        return null;
-    }
 
     @Override
     @Transactional
     public List<DishDto> addDishes(List<DishDto> dishDtos, Restaurant restaurant) {
         List<Dish> dishes = dishDtos.stream().map(e -> dishMapper.convertDishDtoToDish(e, restaurant)).collect(Collectors.toList());
-        List<DishDto> dishesDto = repository.saveAll(dishes)
+        return repository.saveAll(dishes)
                 .stream()
                 .map(dishMapper::convertDishToDishDto).collect(Collectors.toList());
-        return dishesDto;
     }
+
+    @Override
+    public List<DishDto> findAllDishesByRestaurant(Restaurant restaurant) {
+        return repository.findByRestaurant(restaurant)
+                .stream().map(dishMapper::convertDishToDishDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public DishDto findDishByDishId(Long dishId) {
+        return repository.findById(dishId)
+                .map(dishMapper::convertDishToDishDto)
+                .orElseThrow(() -> new RuntimeException("dish id cannot be empty!"));
+    }
+
+    @Override
+    public DishDto updateDishes(DishDto dishDto) {
+        return repository.findById(dishDto.getDishId())
+                .map(dishMapper::convertDishToDishDto)
+                .orElseThrow(() -> new RuntimeException("dish id cannot be empty!"));
+    }
+
+
 }

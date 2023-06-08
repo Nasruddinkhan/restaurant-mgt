@@ -5,12 +5,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "licenses")
 @Data
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class License {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -5,4 +5,6 @@ import com.mypractice.restaurantmgt.entity.Restaurant;
 
 public interface LicenseService {
     LicenseDto addLicense(LicenseDto licenseDto, Restaurant restaurant);
+
+    LicenseDto findLicenseByRestaurant(Restaurant restaurant);
 }

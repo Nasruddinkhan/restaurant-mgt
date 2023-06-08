@@ -27,7 +27,13 @@ public class LicenseServiceImpl implements LicenseService {
     public LicenseDto addLicense(LicenseDto licenseDto, Restaurant restaurant) {
         licenseDto.setDocumentName(FileUtils.createFile(licenseDto.getFileContent(), filePath, licenseDto.getDocumentName()));
         License license = repository.save(licenseMapper.convertLicenseDtoToLicense(licenseDto, restaurant));
-        LicenseDto licenseDtos = licenseMapper.convertLicenseToLicense(license);
-        return licenseDtos;
+        return licenseMapper.convertLicenseToLicense(license);
+    }
+
+    @Override
+    public LicenseDto findLicenseByRestaurant(Restaurant restaurant) {
+        return repository.findByRestaurant(restaurant)
+                .map(licenseMapper::convertLicenseToLicense)
+                .orElseThrow(()-> new RuntimeException("no record found for this id"));
     }
 }
