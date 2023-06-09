@@ -3,6 +3,7 @@ package com.mypractice.restaurantmgt.service.impl;
 import com.mypractice.restaurantmgt.dto.LicenseDto;
 import com.mypractice.restaurantmgt.entity.License;
 import com.mypractice.restaurantmgt.entity.Restaurant;
+import com.mypractice.restaurantmgt.exception.RestaurantException;
 import com.mypractice.restaurantmgt.mapper.LicenseMapper;
 import com.mypractice.restaurantmgt.repository.LicenseRepository;
 import com.mypractice.restaurantmgt.service.LicenseService;
@@ -37,7 +38,15 @@ public class LicenseServiceImpl implements LicenseService {
         return repository.findByRestaurant(restaurant)
                 .map(licenseMapper::convertLicenseToLicense)
                 .map(this::getFileContent)
-                .orElseThrow(() -> new RuntimeException("no record found for this id"));
+                .orElseThrow(() -> new RestaurantException("no record found for this id"));
+    }
+
+    @Override
+    public LicenseDto findLicenseByLicenseId(Long licenseId) {
+        return repository.findById(licenseId)
+                .map(licenseMapper::convertLicenseToLicense)
+                .map(this::getFileContent)
+                .orElseThrow(() -> new RestaurantException("no record found for this id"));
     }
 
     private LicenseDto getFileContent(LicenseDto licenseDto) {

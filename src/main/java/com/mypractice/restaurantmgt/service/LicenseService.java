@@ -7,4 +7,6 @@ public interface LicenseService {
     LicenseDto addLicense(LicenseDto licenseDto, Restaurant restaurant);
 
     LicenseDto findLicenseByRestaurant(Restaurant restaurant);
+
+    LicenseDto findLicenseByLicenseId(Long licenseId);
 }
