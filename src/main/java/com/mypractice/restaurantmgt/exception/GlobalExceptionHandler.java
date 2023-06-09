@@ -20,6 +20,15 @@ public class GlobalExceptionHandler {
                 .build());
 
     }
+
+    @ExceptionHandler(RestaurantException.class)
+    public ResponseEntity<ErrorDto> handleRestaurantException(RestaurantException exception){
+        return ResponseEntity.internalServerError().body(ErrorDto.builder().errorCode(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase())
+                .msg(exception.getMessage())
+                .localDateTime(LocalDateTime.now(ZoneId.of("UTC")))
+                .build());
+
+    }
 }
 
 
