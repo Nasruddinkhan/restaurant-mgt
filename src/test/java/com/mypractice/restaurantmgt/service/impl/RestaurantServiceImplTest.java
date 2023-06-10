@@ -119,13 +119,7 @@ class RestaurantServiceImplTest {
 
     @Test
     void findAllRestaurantWithDetails() {
+
     }
 
-    @Test
-    void createDishDto() {
-    }
-
-    @Test
-    void addLicences() {
-    }
 }

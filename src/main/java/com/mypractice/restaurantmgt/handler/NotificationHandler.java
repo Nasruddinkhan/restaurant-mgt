@@ -24,13 +24,10 @@ public class NotificationHandler extends TextWebSocketHandler {
         System.out.println(message.getPayload());
     }
 
-    public void sendNotification(String notification) {
-        sessions.forEach(webSocketSession -> {
-            try {
-                webSocketSession.sendMessage(new TextMessage(notification));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+    public void  sendNotification(String notification) throws IOException {
+        TextMessage message = new TextMessage(notification);
+        for (WebSocketSession session : sessions) {
+            session.sendMessage(message);
+        }
     }
 }

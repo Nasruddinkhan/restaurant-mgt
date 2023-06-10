@@ -70,13 +70,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
 
-    public List<DishDto> createDishDto(List<DishDto> dishDto, Restaurant restaurant) {
+    private List<DishDto> createDishDto(List<DishDto> dishDto, Restaurant restaurant) {
         return Optional.ofNullable(dishDto)
                 .map(dishDtos -> dishService.addDishes(dishDtos, restaurant))
                 .orElseThrow(() -> new RuntimeException("Please provide the dishes!"));
     }
 
-    public LicenseDto addLicences(LicenseDto licenseDto, Restaurant restaurant) {
+    private LicenseDto addLicences(LicenseDto licenseDto, Restaurant restaurant) {
         return Optional.of(licenseDto)
                 .map(obj -> licenseService.addLicense(obj, restaurant))
                 .orElseThrow(() -> new RuntimeException("Please provide the license!"));

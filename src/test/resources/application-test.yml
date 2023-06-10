@@ -16,4 +16,4 @@ file-location: /home/sufiya/my-work/files
 logging:
   level:
     org.springframework: INFO
-host-url : http://localhost:restaurant-svc/api/
+
