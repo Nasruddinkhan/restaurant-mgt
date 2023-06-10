@@ -13,7 +13,7 @@ public class DishMapper {
         return Dish.builder()
                 .dishId(dishDto.getDishId())
                 .name(dishDto.getName())
-                .description(restaurant.getName() +" - "+ dishDto.getDescription())
+                .description(dishDto.getDescription())
                 .price(dishDto.getPrice())
                 .restaurant(restaurant)
                 .build();

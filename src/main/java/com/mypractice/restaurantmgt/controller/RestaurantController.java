@@ -23,7 +23,7 @@ public class RestaurantController {
     @PostMapping
     public ResponseEntity<RestaurantDto> addRestaurant(@RequestBody RestaurantDto dto) throws IOException {
         RestaurantDto restaurantDto = restaurantService.addRestaurant(dto);
-        notificationHandler.sendNotification(String.format("new restaurant %s has regsiter successfully with license number %s", restaurantDto.getName(), restaurantDto.getLicenseDto().getLicenseNumber()));
+        notificationHandler.sendNotification(String.format("new restaurant %s has register successfully with license number %s", restaurantDto.getName(), restaurantDto.getLicenseDto().getLicenseNumber()));
         return new ResponseEntity<>(restaurantDto, HttpStatus.CREATED);
     }
 

@@ -1,0 +1,14 @@
+[
+  {
+    "dishId":1,
+    "name": "Beef Bihari Seek",
+    "description": "Beef Bihari Seek",
+    "price": "80.00"
+  },
+  {
+    "dishId":2,
+    "name": "Chicken Biryani",
+    "description": "Chicken Biryani",
+    "price": "60.00"
+  }
+]
