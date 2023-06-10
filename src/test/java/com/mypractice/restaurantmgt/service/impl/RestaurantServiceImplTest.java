@@ -1,15 +1,12 @@
 package com.mypractice.restaurantmgt.service.impl;
 
-import com.mypractice.restaurantmgt.dto.LicenseDto;
 import com.mypractice.restaurantmgt.dto.RestaurantDto;
 import com.mypractice.restaurantmgt.dto.RestaurantResponseDto;
-import com.mypractice.restaurantmgt.entity.License;
 import com.mypractice.restaurantmgt.entity.Restaurant;
 import com.mypractice.restaurantmgt.mapper.RestaurantMapper;
 import com.mypractice.restaurantmgt.repository.RestaurantRepository;
 import com.mypractice.restaurantmgt.service.DishService;
 import com.mypractice.restaurantmgt.service.LicenseService;
-import com.mypractice.restaurantmgt.service.RestaurantService;
 import com.mypractice.restaurantmgt.util.CommonUtilTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,6 +17,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -89,10 +87,34 @@ class RestaurantServiceImplTest {
 
     @Test
     void findRestaurantById() {
+        RestaurantResponseDto restaurantResponseDto = RestaurantResponseDto.builder()
+                .restaurantId(restaurantDto.getRestaurantId())
+                .name(restaurantDto.getName())
+                .build();
+
+        Restaurant restaurant = Restaurant.builder().restaurantId(restaurantDto.getRestaurantId())
+                .name(restaurantDto.getName())
+                .build();
+        when(restaurantRepository.findById(any())).thenReturn(Optional.of(restaurant));
+        when(restaurantMapper.restaurantToRestaurantDto(restaurant)).thenReturn(restaurantResponseDto);
+
+        RestaurantResponseDto restaurant1= restaurantService.findRestaurantById(1L);
+        assertNotNull(restaurant1);
+        assertThat(restaurantResponseDto).isEqualTo(restaurant1);
+
     }
 
     @Test
     void findRestaurantByRestaurantId() {
+        Restaurant restaurant = Restaurant.builder().restaurantId(restaurantDto.getRestaurantId())
+                .name(restaurantDto.getName())
+                .build();
+        when(restaurantRepository.findById(any())).thenReturn(Optional.of(restaurant));
+        when(restaurantMapper.restaurantDtoToRestaurant(restaurantDto)).thenReturn(restaurant);
+
+        Restaurant restaurant1= restaurantService.findRestaurantByRestaurantId(1L);
+        assertNotNull(restaurant1);
+        assertThat(restaurant).isEqualTo(restaurant1);
     }
 
     @Test
