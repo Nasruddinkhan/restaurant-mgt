@@ -11,6 +11,7 @@ import java.util.Map;
 public class EmailMapper {
     public MailDTO getEmailDto(RestaurantDto dto) {
         Map<String, Object> data = new HashMap<>();
+        data.put("name", dto.getName());
         return MailDTO.builder()
                 .mailTo(dto.getEmail())
                 .requiredData(data)
