@@ -11,4 +11,6 @@ public interface MailTemplateRepo extends JpaRepository<MailTemplateEntity, Inte
     List<MailTemplateEntity> findAllByIsActiveIsTrue();
 
     MailTemplateEntity findByIdAndIsActiveIsTrue(Integer id);
+
+    MailTemplateEntity findByNameAndIsActiveIsTrue(String name);
 }

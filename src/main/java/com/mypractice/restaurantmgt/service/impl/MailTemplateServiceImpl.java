@@ -26,4 +26,9 @@ public class MailTemplateServiceImpl implements MailTemplateService {
         return mailTemplateRepo.findByIdAndIsActiveIsTrue(id);
     }
 
+    @Override
+    public MailTemplateEntity getMailTemplateByName(String name) {
+        return mailTemplateRepo.findByNameAndIsActiveIsTrue(name);
+    }
+
 }

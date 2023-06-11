@@ -1,6 +1,7 @@
 package com.mypractice.restaurantmgt.controller;
 
 import com.mypractice.restaurantmgt.dto.RestaurantDto;
+import com.mypractice.restaurantmgt.service.RestaurantService;
 import com.mypractice.restaurantmgt.util.CommonUtilTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,12 +31,14 @@ class RestaurantControllerTest {
     private int port;
 
     private final TestRestTemplate restTemplate;
+    private final RestaurantService restaurantService;
     RestaurantDto restaurantDto;
     HttpHeaders headers;
 
     @Autowired
-    public RestaurantControllerTest(TestRestTemplate restTemplate) {
+    public RestaurantControllerTest(TestRestTemplate restTemplate, RestaurantService restaurantService) {
         this.restTemplate = restTemplate;
+        this.restaurantService = restaurantService;
     }
 
     @BeforeEach
@@ -46,7 +49,7 @@ class RestaurantControllerTest {
         headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)); // Add Accept header
-
+        restaurantService.addRestaurant(restaurantDto);
     }
 
 

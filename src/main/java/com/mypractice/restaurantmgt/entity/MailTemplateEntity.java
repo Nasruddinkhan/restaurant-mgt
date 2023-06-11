@@ -1,6 +1,5 @@
 package com.mypractice.restaurantmgt.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mypractice.restaurantmgt.util.JsonMapConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,22 +18,22 @@ import java.util.Map;
 public class MailTemplateEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
+
     private Integer id;
 
-    @JsonProperty("name")
+    @Column(name = "name", unique = true)
     private String name;
 
-    @JsonProperty("subject")
+    @Column(name = "subject")
     private String subject;
 
-    @JsonProperty("file_name")
+    @Column(name = "file_name")
     private String fileName;
 
-    @JsonProperty("is_active")
+    @Column(name = "is_active")
     private Boolean isActive;
 
-    @JsonProperty("required_data")
+    @Column(name = "required_data")
     @Convert(converter = JsonMapConverter.class)
     private Map<String, String> requiredData;
 }

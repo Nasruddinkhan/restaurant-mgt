@@ -8,4 +8,5 @@ public interface MailTemplateService {
      List<MailTemplateEntity> getAllTemplates();
 
      MailTemplateEntity getMailTemplateById(Integer id);
+     MailTemplateEntity getMailTemplateByName(String id);
 }
