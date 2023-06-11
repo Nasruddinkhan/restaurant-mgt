@@ -35,3 +35,5 @@ springdoc:
   swagger-ui:
     path: /swagger-ui.html
 file-location: /home/sufiya/my-work/files
+restaurant:
+  registration-template-name: restaurant_register

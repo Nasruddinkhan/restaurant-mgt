@@ -1,6 +1,7 @@
 {
  "restaurantId": 1,
   "name": "Khana Khajana",
+  "email": "nasruddinkhan44@gmail.com",
   "dishDto": [
     {
       "dishId":1,

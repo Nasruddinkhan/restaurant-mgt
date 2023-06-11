@@ -15,6 +15,7 @@ import java.util.List;
 public class RestaurantMapper {
     public  Restaurant restaurantDtoToRestaurant(RestaurantDto restaurantDto){
        return Restaurant.builder()
+               .email(restaurantDto.getEmail())
                 .restaurantId(restaurantDto.getRestaurantId())
                 .name(restaurantDto.getName())
                 .build();
@@ -22,6 +23,7 @@ public class RestaurantMapper {
 
     public RestaurantDto restaurantToRestaurantDto(Restaurant restaurant, List<DishDto> dishes, LicenseDto licences) {
         return RestaurantDto.builder()
+                .email(restaurant.getEmail())
                 .restaurantId(restaurant.getRestaurantId())
                 .name(restaurant.getName())
                 .dishDto(dishes)

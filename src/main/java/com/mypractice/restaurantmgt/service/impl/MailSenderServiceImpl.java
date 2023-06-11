@@ -4,6 +4,7 @@ package com.mypractice.restaurantmgt.service.impl;
 import com.mypractice.restaurantmgt.dto.MailDTO;
 import com.mypractice.restaurantmgt.entity.MailTemplateEntity;
 import com.mypractice.restaurantmgt.service.MailSenderService;
+import com.mypractice.restaurantmgt.service.MailTemplateService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,14 +28,19 @@ public class MailSenderServiceImpl implements MailSenderService {
 
     private final SpringTemplateEngine templateEngine;
 
-    public MailSenderServiceImpl(@Value("${spring.mail.username}") String mailFrom,JavaMailSender emailSender, SpringTemplateEngine templateEngine) {
+    private final MailTemplateService mailTemplateService;
+
+
+    public MailSenderServiceImpl(@Value("${spring.mail.username}") String mailFrom, JavaMailSender emailSender, SpringTemplateEngine templateEngine,MailTemplateService mailTemplateService) {
         this.mailFrom = mailFrom;
         this.emailSender = emailSender;
         this.templateEngine = templateEngine;
+        this.mailTemplateService = mailTemplateService;
     }
 
     @Override
-    public void sendEmail(MailDTO mailDTO, MailTemplateEntity mailTemplate) throws MessagingException {
+    public void sendEmail(MailDTO mailDTO,  String mailTemplateName) throws MessagingException {
+        MailTemplateEntity mailTemplate = mailTemplateService.getMailTemplateByName(mailTemplateName);
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());

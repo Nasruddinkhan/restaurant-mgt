@@ -17,5 +17,6 @@ public class RestaurantDto {
     private String name;
     private List<DishDto> dishDto;
     private LicenseDto licenseDto;
+    private String email;
 
 }

@@ -14,8 +14,6 @@ import java.util.Map;
 @Builder
 @Data
 public class MailDTO {
-    @JsonProperty("mail_name_template")
-    private String mailTemplateName;
 
     @JsonProperty("mail_to")
     private String mailTo;

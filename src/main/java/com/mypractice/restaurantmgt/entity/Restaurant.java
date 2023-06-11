@@ -21,4 +21,7 @@ public class Restaurant {
     @Column(name = "name", length = 100)
     private String name;
 
+    @Column(name = "email", length = 100)
+    private String email;
+
 }

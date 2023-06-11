@@ -13,5 +13,6 @@ public class RestaurantResponseDto {
 
     private Long restaurantId;
     private String name;
+    private String email;
 
 }
