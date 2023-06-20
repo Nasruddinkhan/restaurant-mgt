@@ -74,7 +74,7 @@ class RestaurantServiceImplTest {
                 .name(restaurantDto.getName())
                 .build();
         when(restaurantMapper.restaurantDtoToRestaurant(restaurantDto)).thenReturn(restaurant);
-        when(restaurantRepository.findAll()).thenReturn(Arrays.asList(restaurant));
+        when(restaurantRepository.findByIsActiveIsTrue()).thenReturn(Arrays.asList(restaurant));
         when(restaurantMapper.restaurantToRestaurantDto(Mockito.any())).thenReturn(RestaurantResponseDto.builder()
                 .restaurantId(restaurantDto.getRestaurantId())
                 .name(restaurantDto.getName())
@@ -95,7 +95,7 @@ class RestaurantServiceImplTest {
         Restaurant restaurant = Restaurant.builder().restaurantId(restaurantDto.getRestaurantId())
                 .name(restaurantDto.getName())
                 .build();
-        when(restaurantRepository.findById(any())).thenReturn(Optional.of(restaurant));
+        when(restaurantRepository.findByRestaurantIdAndIsActiveIsTrue(any())).thenReturn(Optional.of(restaurant));
         when(restaurantMapper.restaurantToRestaurantDto(restaurant)).thenReturn(restaurantResponseDto);
 
         RestaurantResponseDto restaurant1= restaurantService.findRestaurantById(1L);
@@ -109,7 +109,7 @@ class RestaurantServiceImplTest {
         Restaurant restaurant = Restaurant.builder().restaurantId(restaurantDto.getRestaurantId())
                 .name(restaurantDto.getName())
                 .build();
-        when(restaurantRepository.findById(any())).thenReturn(Optional.of(restaurant));
+        when(restaurantRepository.findByRestaurantIdAndIsActiveIsTrue(any())).thenReturn(Optional.of(restaurant));
         when(restaurantMapper.restaurantDtoToRestaurant(restaurantDto)).thenReturn(restaurant);
 
         Restaurant restaurant1= restaurantService.findRestaurantByRestaurantId(1L);

@@ -10,7 +10,6 @@ public interface DishService {
 
     List<DishDto> findAllDishesByRestaurant(Restaurant restaurant);
 
-
     DishDto findDishByDishId(Long dishId);
 
     DishDto updateDishes(DishDto dishDto);

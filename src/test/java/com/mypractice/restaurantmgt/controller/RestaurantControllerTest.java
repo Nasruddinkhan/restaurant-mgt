@@ -1,6 +1,9 @@
 package com.mypractice.restaurantmgt.controller;
 
 import com.mypractice.restaurantmgt.dto.RestaurantDto;
+import com.mypractice.restaurantmgt.entity.MailTemplateEntity;
+import com.mypractice.restaurantmgt.repository.MailTemplateRepo;
+import com.mypractice.restaurantmgt.service.MailSenderService;
 import com.mypractice.restaurantmgt.service.RestaurantService;
 import com.mypractice.restaurantmgt.util.CommonUtilTest;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +20,7 @@ import org.springframework.test.context.ActiveProfiles;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -32,13 +36,17 @@ class RestaurantControllerTest {
 
     private final TestRestTemplate restTemplate;
     private final RestaurantService restaurantService;
+
+    private final MailTemplateRepo mailTemplateRepo;
+
     RestaurantDto restaurantDto;
     HttpHeaders headers;
 
     @Autowired
-    public RestaurantControllerTest(TestRestTemplate restTemplate, RestaurantService restaurantService) {
+    public RestaurantControllerTest(TestRestTemplate restTemplate, RestaurantService restaurantService, MailTemplateRepo mailTemplateRepo) {
         this.restTemplate = restTemplate;
         this.restaurantService = restaurantService;
+        this.mailTemplateRepo = mailTemplateRepo;
     }
 
     @BeforeEach
@@ -50,6 +58,11 @@ class RestaurantControllerTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)); // Add Accept header
         restaurantService.addRestaurant(restaurantDto);
+        List<MailTemplateEntity> mailTemplateEntities = new ArrayList<>();
+        CommonUtilTest.loadFile("json/emailtemplates.json", mailTemplateEntities, getClass().getClassLoader());
+        mailTemplateRepo.saveAll(mailTemplateEntities).forEach(System.out::println);
+
+
     }
 
 

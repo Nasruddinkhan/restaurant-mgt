@@ -16,6 +16,7 @@ public class RestaurantMapper {
     public  Restaurant restaurantDtoToRestaurant(RestaurantDto restaurantDto){
        return Restaurant.builder()
                .email(restaurantDto.getEmail())
+               .isActive(true)
                 .restaurantId(restaurantDto.getRestaurantId())
                 .name(restaurantDto.getName())
                 .build();

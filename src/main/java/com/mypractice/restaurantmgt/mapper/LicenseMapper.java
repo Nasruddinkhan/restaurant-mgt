@@ -12,6 +12,7 @@ public class LicenseMapper {
 
     public License convertLicenseDtoToLicense(final LicenseDto licenseDto,final Restaurant restaurant){
         return License.builder()
+                .isActive(true)
                 .licenseNo(licenseDto.getLicenseNo())
                 .licenseNumber(licenseDto.getLicenseNumber())
                 .documentName(licenseDto.getDocumentName())

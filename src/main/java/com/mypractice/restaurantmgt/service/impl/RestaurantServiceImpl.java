@@ -39,27 +39,27 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public List<RestaurantResponseDto> findAllRestaurant() {
-        return repository.findAll()
+        return repository.findByIsActiveIsTrue()
                 .stream().map(restaurantMapper::restaurantToRestaurantDto)
                 .collect(Collectors.toList());
     }
 
     @Override
     public RestaurantResponseDto findRestaurantById(Long restaurantId) {
-        return repository.findById(restaurantId)
+        return repository.findByRestaurantIdAndIsActiveIsTrue(restaurantId)
                 .map(restaurantMapper::restaurantToRestaurantDto)
                 .orElseThrow(() -> new RuntimeException(String.format("restaurant not found given %s id", restaurantId)));
     }
 
     @Override
     public Restaurant findRestaurantByRestaurantId(Long restaurantId) {
-        return repository.findById(restaurantId)
+        return repository.findByRestaurantIdAndIsActiveIsTrue(restaurantId)
                 .orElseThrow(() -> new RuntimeException(String.format("restaurant not found given %s id", restaurantId)));
     }
 
     @Override
     public List<RestaurantDto> findAllRestaurantWithDetails() {
-        return repository.findAll().stream().map(this::getDishesAndLicense).collect(Collectors.toList());
+        return repository.findByIsActiveIsTrue().stream().map(this::getDishesAndLicense).collect(Collectors.toList());
     }
 
     private RestaurantDto getDishesAndLicense(Restaurant restaurant) {

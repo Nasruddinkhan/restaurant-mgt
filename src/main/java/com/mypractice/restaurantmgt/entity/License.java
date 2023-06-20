@@ -31,4 +31,7 @@ public class License {
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+
+    @Column(name = "is_active", columnDefinition = "boolean default true")
+    private boolean isActive;
 }

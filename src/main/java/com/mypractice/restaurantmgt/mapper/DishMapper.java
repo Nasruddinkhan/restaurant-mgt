@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class DishMapper {
     public  Dish convertDishDtoToDish(DishDto dishDto, Restaurant restaurant){
         return Dish.builder()
+                .isActive(true)
                 .dishId(dishDto.getDishId())
                 .name(dishDto.getName())
                 .description(dishDto.getDescription())

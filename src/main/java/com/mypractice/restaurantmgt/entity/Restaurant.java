@@ -24,4 +24,7 @@ public class Restaurant {
     @Column(name = "email", length = 100)
     private String email;
 
+    @Column(name = "is_active", columnDefinition = "boolean default true")
+    private boolean isActive;
+
 }
