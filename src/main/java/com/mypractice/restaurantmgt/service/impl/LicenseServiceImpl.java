@@ -49,6 +49,13 @@ public class LicenseServiceImpl implements LicenseService {
                 .orElseThrow(() -> new RestaurantException("no record found for this id"));
     }
 
+    @Override
+    public LicenseDto blockLicense(Restaurant restaurant) {
+        return repository.findByRestaurant(restaurant)
+                .map(licenseMapper::setInActive)
+                .map(licenseMapper::convertLicenseToLicense).orElseThrow(() -> new RestaurantException("no record found for this id"));
+    }
+
     private LicenseDto getFileContent(LicenseDto licenseDto) {
         String encodedContent = FileUtils.encodeFileToBase64(filePath + File.separator + licenseDto.getDocumentName());
         licenseDto.setFileContent(encodedContent);

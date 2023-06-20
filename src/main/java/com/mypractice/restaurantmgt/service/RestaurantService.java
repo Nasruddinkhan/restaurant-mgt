@@ -15,4 +15,6 @@ public interface RestaurantService {
     Restaurant findRestaurantByRestaurantId(Long restaurantId);
 
     List<RestaurantDto> findAllRestaurantWithDetails();
+
+    void blockTheRestaurant(Long restaurantId);
 }

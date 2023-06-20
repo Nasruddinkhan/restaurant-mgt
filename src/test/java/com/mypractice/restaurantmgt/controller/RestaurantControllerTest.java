@@ -59,8 +59,8 @@ class RestaurantControllerTest {
         headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON)); // Add Accept header
         restaurantService.addRestaurant(restaurantDto);
         List<MailTemplateEntity> mailTemplateEntities = new ArrayList<>();
-        CommonUtilTest.loadFile("json/emailtemplates.json", mailTemplateEntities, getClass().getClassLoader());
-        mailTemplateRepo.saveAll(mailTemplateEntities).forEach(System.out::println);
+        mailTemplateEntities = CommonUtilTest.loadFile("json/emailtemplates.json", mailTemplateEntities, getClass().getClassLoader());
+        mailTemplateRepo.saveAll(mailTemplateEntities).forEach(e->System.out.println(e.getName()));
 
 
     }

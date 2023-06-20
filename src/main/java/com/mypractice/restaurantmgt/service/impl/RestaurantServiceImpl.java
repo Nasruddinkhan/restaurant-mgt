@@ -5,6 +5,7 @@ import com.mypractice.restaurantmgt.dto.LicenseDto;
 import com.mypractice.restaurantmgt.dto.RestaurantDto;
 import com.mypractice.restaurantmgt.dto.RestaurantResponseDto;
 import com.mypractice.restaurantmgt.entity.Restaurant;
+import com.mypractice.restaurantmgt.exception.RestaurantException;
 import com.mypractice.restaurantmgt.mapper.RestaurantMapper;
 import com.mypractice.restaurantmgt.repository.RestaurantRepository;
 import com.mypractice.restaurantmgt.service.DishService;
@@ -54,7 +55,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant findRestaurantByRestaurantId(Long restaurantId) {
         return repository.findByRestaurantIdAndIsActiveIsTrue(restaurantId)
-                .orElseThrow(() -> new RuntimeException(String.format("restaurant not found given %s id", restaurantId)));
+                .orElseThrow(() -> new RestaurantException(String.format("restaurant not found given %s id", restaurantId)));
     }
 
     @Override
@@ -62,12 +63,21 @@ public class RestaurantServiceImpl implements RestaurantService {
         return repository.findByIsActiveIsTrue().stream().map(this::getDishesAndLicense).collect(Collectors.toList());
     }
 
+    @Override
+    public void blockTheRestaurant(Long restaurantId) {
+        repository.findByRestaurantIdAndIsActiveIsTrue(restaurantId)
+                .map(restaurantMapper::setInactive)
+                .map(repository::save)
+                .map(dishService::blockTheDishes)
+                .map(licenseService::blockLicense)
+                .orElseThrow(() -> new RuntimeException(String.format("restaurant not found given %s id", restaurantId)));
+    }
+
     private RestaurantDto getDishesAndLicense(Restaurant restaurant) {
         List<DishDto> dishDto = dishService.findAllDishesByRestaurant(restaurant);
         LicenseDto licenseDto = licenseService.findLicenseByRestaurant(restaurant);
         return restaurantMapper.restaurantToRestaurantDto(restaurant, dishDto, licenseDto);
     }
-
 
 
     private List<DishDto> createDishDto(List<DishDto> dishDto, Restaurant restaurant) {

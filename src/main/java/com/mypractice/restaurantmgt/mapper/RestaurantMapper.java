@@ -39,4 +39,8 @@ public class RestaurantMapper {
                 .build();
     }
 
+    public Restaurant setInactive(Restaurant restaurant) {
+        restaurant.setActive(Boolean.FALSE);
+        return restaurant;
+    }
 }

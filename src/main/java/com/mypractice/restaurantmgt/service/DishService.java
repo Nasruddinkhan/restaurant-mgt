@@ -13,4 +13,6 @@ public interface DishService {
     DishDto findDishByDishId(Long dishId);
 
     DishDto updateDishes(DishDto dishDto);
+
+    Restaurant blockTheDishes(Restaurant restaurant);
 }

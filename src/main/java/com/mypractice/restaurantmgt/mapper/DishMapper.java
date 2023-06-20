@@ -28,4 +28,9 @@ public class DishMapper {
                 .description(dish.getDescription())
                 .build();
     }
+
+    public Dish setInActiveDish(Dish dish) {
+        dish.setActive(Boolean.FALSE);
+        return dish;
+    }
 }

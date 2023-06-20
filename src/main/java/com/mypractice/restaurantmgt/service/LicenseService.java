@@ -9,4 +9,6 @@ public interface LicenseService {
     LicenseDto findLicenseByRestaurant(Restaurant restaurant);
 
     LicenseDto findLicenseByLicenseId(Long licenseId);
+
+    LicenseDto blockLicense(Restaurant restaurant);
 }

@@ -54,4 +54,14 @@ public class RestaurantController {
         List<RestaurantDto> restaurantDtos = restaurantService.findAllRestaurantWithDetails();
         return ResponseEntity.ok(restaurantDtos);
     }
+
+    @DeleteMapping("/{restaurant-id}")
+    public ResponseEntity<Void> blockTheRestaurant(@PathVariable("restaurant-id") Long restaurantId) {
+        restaurantService.blockTheRestaurant(restaurantId);
+        return ResponseEntity.noContent().build();
+    }
+
+
+
+
 }

@@ -40,6 +40,7 @@ public class MailSenderServiceImpl implements MailSenderService {
 
     @Override
     public void sendEmail(MailDTO mailDTO,  String mailTemplateName) throws MessagingException {
+        System.out.println("MailSenderServiceImpl.sendEmail "+mailTemplateName);
         MailTemplateEntity mailTemplate = mailTemplateService.getMailTemplateByName(mailTemplateName);
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,

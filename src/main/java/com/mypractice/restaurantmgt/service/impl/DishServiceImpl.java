@@ -51,5 +51,14 @@ public class DishServiceImpl implements DishService {
                 .orElseThrow(() -> new RuntimeException("dish id cannot be empty!"));
     }
 
+    @Override
+    public Restaurant blockTheDishes(Restaurant restaurant) {
+       List<Dish> dishes =   repository.findByRestaurant(restaurant)
+                .stream().map(dishMapper::setInActiveDish)
+               .collect(Collectors.toList());
+       repository.saveAll(dishes);
+       return restaurant;
+    }
+
 
 }

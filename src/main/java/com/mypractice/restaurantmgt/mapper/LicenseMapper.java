@@ -29,4 +29,9 @@ public class LicenseMapper {
                 .type(license.getType())
                 .build();
     }
+
+    public License setInActive(License license) {
+        license.setActive(Boolean.FALSE);
+        return license;
+    }
 }
