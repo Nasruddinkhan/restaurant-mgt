@@ -9,4 +9,5 @@ public interface MailTemplateService {
 
      MailTemplateEntity getMailTemplateById(Integer id);
      MailTemplateEntity getMailTemplateByName(String id);
+
 }

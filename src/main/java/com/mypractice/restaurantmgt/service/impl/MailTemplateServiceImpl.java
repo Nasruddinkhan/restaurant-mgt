@@ -31,4 +31,6 @@ public class MailTemplateServiceImpl implements MailTemplateService {
         return mailTemplateRepo.findByNameAndIsActiveIsTrue(name);
     }
 
+
+
 }
